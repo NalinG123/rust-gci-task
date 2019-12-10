@@ -5,7 +5,7 @@
 // cargo test 
 // contact: gnalin134@gmail.com
 
-//checks whether cubesum is an angstrom number.
+//checks whether nthsum is an angstrom number.
 fn angstrom_check(input: u64) -> bool
 {
     let mut  placeval = 1;
@@ -16,19 +16,19 @@ fn angstrom_check(input: u64) -> bool
 
        let  inputcopy = input/placeval;
         let digit = inputcopy%10;
-      //  println!("{}",digit);
+       println!("{}",digit);
         placeval = placeval * 10;
-        digits.push(digit);
+      
         if inputcopy == 0 
         {
             break;
         }
-       
+        digits.push(digit); 
 
     }
-    let cubesum = generate_cubesum(&digits);
+    let nthsum = generate_nthsum(&digits);
     let mut is_angstrom  = false;
-    if cubesum == input
+    if nthsum == input
     {
         println!("It is an Angstrom number");
         is_angstrom = true;
@@ -39,17 +39,20 @@ fn angstrom_check(input: u64) -> bool
     }
     return is_angstrom;
 }
-//generates cubesum for checking whether its an angstrom number or not later on in the first function.
-fn generate_cubesum(digits: &[u64]) -> u64
+//generates nthsum for checking whether its an angstrom number or not later on in the first function.
+fn generate_nthsum(digits: &[u64]) -> u64
 {
-    let mut cubesum: u64 = 0;
+    let mut nthsum: u64 = 0;
+    let      num_digits: u32= digits.len() as u32;
     for digit in digits
     {
-        let cube = digit*digit*digit;
+    
+        let  nth = digit.pow(num_digits);
+        println!("{}",nth);
         
-        cubesum = cubesum + cube; 
+        nthsum = nthsum + nth; 
     }
-    return cubesum;
+    return nthsum;
        
 }
 
@@ -88,7 +91,9 @@ mod tests{
         assert_eq!(angstrom_check(370  ),true);  
         assert_eq!(angstrom_check(371   ),true);
         assert_eq!(angstrom_check( 876 ),false);  
-    
+        assert_eq!(angstrom_check( 54748 ),true);  
+        assert_eq!(angstrom_check( 54749 ),false);
     }
+
 }
 
